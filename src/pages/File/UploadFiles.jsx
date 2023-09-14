@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {get, postFormData} from '../helpers/request.js';
+import {getBlob, postFormData} from '../../helpers/request.js';
 import classnames from 'classnames';
 
 const UploadFiles = () => {
@@ -45,12 +45,25 @@ const UploadFiles = () => {
     };
 
     const downloadFile = async (fileId) => {
-        await get(`/files/{file:${fileId}`);
+        const result = await getBlob(`/files/${fileId}`);
+        const blobURL = URL.createObjectURL(result);
+
+        downloadBlob(blobURL);
+    };
+
+    const downloadBlob = (blobURL) => {
+        const link = document.createElement('a');
+        link.href = blobURL;
+        link.download = name;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     return (
         <div className="files">
-            <div className="files__input-group">
+            <div className="files__input-group form">
                 <div className="files__input input-group">
                     <label>Upload Files</label>
                     <input
@@ -68,26 +81,25 @@ const UploadFiles = () => {
                     onDrop={(event) => collectDragAndDropFiles(event)}
                     className="files__drag-and-drop-field"
                 >
-                {drag
-                    ? <p>Release files to upload</p>
-                    : <p>Drag and drop files to upload</p>
-                }
+                    {drag
+                        ? <p>Release files to upload</p>
+                        : <p>Drag and drop files to upload</p>
+                    }
                 </div>
             </div>
             <div className="files__list">
                 {files.map((file, index) =>
                     <div key={index} className="files__item">
                         <span className={classnames('files__status', file.success && 'uploaded')}></span>
-                        <p>{file.file_id}</p>
-                        а
+                        <p>{file.name}</p>
                         <button
-                            onClick={(file) => downloadFile(file.file_id)}
-                            className={classnames( 'button', !file.success && 'danger-button')}
-                            //disabled={!!file.success}
+                            onClick={() => downloadFile(file.file_id)}
+                            className={classnames('button', !file.success && 'danger-button')}
+                            disabled={!file.success}
                         >
                             {!!file.success ? 'Download' : 'File not uploaded'}
                         </button>
-                    </div>
+                    </div>,
                 )}
             </div>
         </div>);

@@ -1,7 +1,7 @@
 import {useState, useContext} from 'react';
-import {postJson} from '../helpers/request.js';
+import {post} from '../../helpers/request.js';
 import classnames from 'classnames';
-import {AuthContext} from '../context/index.js';
+import {AuthContext} from '../../context/index.js';
 
 const Login = () => {
     const {setAuth} = useContext(AuthContext);
@@ -14,7 +14,7 @@ const Login = () => {
 
     const login = async (event) => {
         event.preventDefault();
-        const result = await postJson('/authorization', credentials);
+        const result = await post('/authorization', credentials);
 
         if (!result.success) {
             setErrors({
@@ -30,7 +30,7 @@ const Login = () => {
 
     return (
         <div className="auth">
-            <form className="auth__form">
+            <form className="form">
                 <h3>Login</h3>
                 <div className="input-group">
                     <label>Email</label>
@@ -41,7 +41,7 @@ const Login = () => {
                         type="text"
                     />
                 </div>
-                {errors.email && <p className="auth__error">{errors.email}</p>}
+                {errors.email && <p className="form__error">{errors.email}</p>}
                 <div className="input-group">
                     <label>Password</label>
                     <input
@@ -51,7 +51,7 @@ const Login = () => {
                         type="password"
                     />
                 </div>
-                {errors.password && <p className="auth__error">{errors.password}</p>}
+                {errors.password && <p className="form__error">{errors.password}</p>}
                 <button onClick={login} className="button">
                     Login
                 </button>

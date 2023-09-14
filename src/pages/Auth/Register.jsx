@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
-import {postJson} from '../helpers/request.js';
+import {post} from '../../helpers/request.js';
 import classnames from 'classnames';
-import {AuthContext} from '../context/index.js';
+import {AuthContext} from '../../context/index.js';
 
 const Register = () => {
     const {setAuth} = useContext(AuthContext);
@@ -16,7 +16,7 @@ const Register = () => {
 
     const register = async (event) => {
         event.preventDefault();
-        const result = await postJson('/registration', credentials);
+        const result = await post('/registration', credentials);
 
         if (!result.success) {
             const errors = result.message;
@@ -30,7 +30,7 @@ const Register = () => {
 
     return (
         <div className="auth">
-            <form className="auth__form">
+            <form className="form">
                 <h3>Register</h3>
                 <div className="input-group">
                     <label>First Name</label>
@@ -41,7 +41,7 @@ const Register = () => {
                         type="text"
                     />
                 </div>
-                {errors.first_name && <p className="auth__error">{errors.first_name}</p>}
+                {errors.first_name && <p className="form__error">{errors.first_name}</p>}
                 <div className="input-group">
                     <label>Last Name</label>
                     <input
@@ -51,7 +51,7 @@ const Register = () => {
                         type="text"
                     />
                 </div>
-                {errors.last_name && <p className="auth__error">{errors.last_name}</p>}
+                {errors.last_name && <p className="form__error">{errors.last_name}</p>}
                 <div className="input-group">
                     <label>Email</label>
                     <input
@@ -61,7 +61,7 @@ const Register = () => {
                         type="text"
                     />
                 </div>
-                {errors.email && <p className="auth__error">{errors.email}</p>}
+                {errors.email && <p className="form__error">{errors.email}</p>}
                 <div className="input-group">
                     <label>Password</label>
                     <input
@@ -71,7 +71,7 @@ const Register = () => {
                         type="password"
                     />
                 </div>
-                {errors.password && <p className="auth__error">{errors.password}</p>}
+                {errors.password && <p className="form__error">{errors.password}</p>}
                 <button onClick={register} className="button">
                     Register
                 </button>

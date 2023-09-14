@@ -19,14 +19,15 @@ const Header = () => {
         <header className="header">
             <div className="header__container">
                 <Link to="/" className="header__logo">
-                    Files
+                    File Manager
                 </Link>
-                <nav className="header__nav">
-                    <Link to="/"></Link>
-                    <Link to="/"></Link>
-                    <Link to="/"></Link>
-                    <Link to="/"></Link>
-                </nav>
+                {isAuth &&
+                    <nav className="header__nav">
+                        <Link to="/upload-files">Upload Files</Link>
+                        <Link to="/user-files">User Files</Link>
+                        <Link to="/access-files">Access Files</Link>
+                    </nav>
+                }
                 {isAuth ?
                     <div className="header__buttons">
                         <button onClick={logout} className="button">

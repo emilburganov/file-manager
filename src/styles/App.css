@@ -1,8 +1,9 @@
 /* Colors */
 :root {
-    --main-color: #2626fa;
+    --main-color: #4848f5;
     --danger-color: #da1a1a;
     --success-color: #188618;
+    --warning-color: #ffcc00;
     --text-color: #343434;
 }
 
@@ -56,6 +57,15 @@ body {
     background-color: var(--danger-color);
 }
 
+.warning-button {
+    background-color: var(--warning-color);
+    color: #1F1F1F;
+}
+
+.success-button {
+    background-color: var(--success-color);
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -79,6 +89,10 @@ body {
     border-color: var(--danger-color)
 }
 
+.input.success {
+    border-color: var(--success-color)
+}
+
 /* Header */
 .header {
     background-color: white;
@@ -94,7 +108,7 @@ body {
 }
 
 .header__logo {
-    font-size: 36px;
+    font-size: 26px;
     font-weight: 600;
 }
 
@@ -107,7 +121,11 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
+}
+
+.header__nav > a {
+    font-weight: 500;
 }
 
 /* Auth */
@@ -117,7 +135,7 @@ body {
     margin: 100px auto;
 }
 
-.auth__form {
+.form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -125,18 +143,24 @@ body {
     width: 100%;
     background-color: white;
     padding: 24px;
-    border-radius: 24px;
+    border-radius: 8px;
     box-shadow: rgba(203, 195, 195, 0.2) 8px 0 24px;
 }
 
-.auth__form > h3 {
+.form > h3 {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 16px;
 }
 
-.auth__error {
+.form__error {
     color: var(--danger-color);
+    font-weight: 500;
+    margin-top: -12px;
+}
+
+.form__message {
+    color: var(--success-color);
     font-weight: 500;
     margin-top: -12px;
 }
@@ -152,13 +176,11 @@ body {
 .files__input {
     padding: 24px;
     border-radius: 8px;
-    background-color: var(--main-color);
-    color: white;
+    gap: 32px;
 }
 
 .files__input > label {
-    color: white;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .files__input-group {
@@ -181,12 +203,13 @@ body {
     height: 100%;
     aspect-ratio: 1/1;
     max-height: 500px;
-    border: 2px dashed var(--main-color);
+    border: 3px dashed var(--main-color);
     border-radius: 8px;
 }
 
 .files__drag-and-drop-field > p{
     font-size: 18px;
+    font-weight: 500;
     pointer-events: none;
 }
 
@@ -206,6 +229,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin: 20px 0;
 }
 
 .files__item {
@@ -214,7 +238,28 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
-    padding: 16px 24px;
+    padding: 24px;
     border-radius: 8px;
     background-color: white;
+}
+
+.files__title {
+    font-size: 32px;
+}
+
+.files__fields-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.files__item p {
+    font-size: 18px;
+}
+
+.files__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
 }

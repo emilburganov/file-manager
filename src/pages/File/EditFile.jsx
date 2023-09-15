@@ -1,10 +1,11 @@
 import {useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import classnames from 'classnames';
 import {patch} from '../../helpers/request.js';
 
 const EditFile = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [credentials, setCredentials] = useState({});
     const [errors, setErrors] = useState({});
     const [messages, setMessages] = useState({});
@@ -42,6 +43,9 @@ const EditFile = () => {
                     Edit
                 </button>
             </form>
+            <button onClick={() => navigate('/user-files')} className="button">
+                Back
+            </button>
         </div>
     );
 };

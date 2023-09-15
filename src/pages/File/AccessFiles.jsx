@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react';
 import {get, getBlob} from '../../helpers/request.js';
+import {useNavigate} from 'react-router-dom';
 
 const AccessFiles = () => {
     const [files, setFiles] = useState([]);
+    const navigate = useNavigate();
 
     const getAccessFiles = async () => {
         const result = await get('/shared');
@@ -51,6 +53,9 @@ const AccessFiles = () => {
                     </div>,
                 )}
             </div>
+            <button onClick={() => navigate('/user-files')} className="button">
+                Back
+            </button>
         </div>
     );
 };

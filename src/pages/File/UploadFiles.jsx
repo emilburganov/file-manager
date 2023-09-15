@@ -1,10 +1,13 @@
 import {useState} from 'react';
 import {getBlob, postFormData} from '../../helpers/request.js';
 import classnames from 'classnames';
+import {useNavigate} from 'react-router-dom';
 
 const UploadFiles = () => {
     const [drag, setDrag] = useState(false);
     const [files, setFiles] = useState([]);
+    const navigate = useNavigate();
+
 
     const uploadFiles = async (formData) => {
         const result = await postFormData('/files', formData);
@@ -90,18 +93,21 @@ const UploadFiles = () => {
             <div className="files__list">
                 {files.map((file, index) =>
                     <div key={index} className="files__item">
-                        <span className={classnames('files__status', file.success && 'uploaded')}></span>
+                        <span className={classnames('files__status', file.success !== '' && 'uploaded')}></span>
                         <p>{file.name}</p>
                         <button
                             onClick={() => downloadFile(file.file_id)}
-                            className={classnames('button', !file.success && 'danger-button')}
-                            disabled={!file.success}
+                            className={classnames('button', file.success === '' && 'danger-button')}
+                            disabled={file.success === ''}
                         >
-                            {!!file.success ? 'Download' : 'File not uploaded'}
+                            {file.success !== '' ? 'Download' : 'File not uploaded'}
                         </button>
                     </div>,
                 )}
             </div>
+            <button onClick={() => navigate('/user-files')} className="button">
+                Back
+            </button>
         </div>);
 };
 

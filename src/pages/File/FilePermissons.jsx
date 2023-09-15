@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {destroy, get, post} from '../../helpers/request.js';
 import classnames from 'classnames';
 
 const FilePermissons = () => {
+    const navigate = useNavigate();
     const {id} = useParams();
     const [users, setUsers] = useState([]);
 
@@ -84,6 +85,9 @@ const FilePermissons = () => {
                     </div>,
                 )}
             </div>
+            <button onClick={() => navigate('/user-files')} className="button">
+                Back
+            </button>
         </div>
     );
 };
